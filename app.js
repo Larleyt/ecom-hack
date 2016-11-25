@@ -1,4 +1,5 @@
 /* jshint ignore:start */
+var firebase = require("firebase");
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
