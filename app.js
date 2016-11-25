@@ -79,5 +79,17 @@ app.use(function(err, req, res, next) {
 });
 
 
+// Initialize Firebase
+var config = {
+apiKey: "AIzaSyBEcimgscyiQn0fzbY8ubUflFJWEah7CSU",
+authDomain: "ecom-hack-630d6.firebaseapp.com",
+databaseURL: "https://ecom-hack-630d6.firebaseio.com",
+storageBucket: "",
+messagingSenderId: "1015042796751"
+};
+firebase.initializeApp(config);
+console.log(firebase)
+
+
 module.exports = app;
 /* jshint ignore:end */
