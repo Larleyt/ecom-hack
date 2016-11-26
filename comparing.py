@@ -4,6 +4,7 @@ import sys
 import json
 import requests
 import pprint
+import difflib
 from sklearn.feature_extraction.text import TfidfVectorizer
 
 
@@ -65,7 +66,17 @@ def get_categories():
 
 
 CATEGORIES = {category["name"]: category["key"] for category in get_categories()}
-PARENT_KEYS = set([category.get("parentKey") for category in get_categories()])
+PARENT_KEYS = list(set([category.get("parentKey") for category in get_categories()]))
+
+for pk in PARENT_KEYS[1:]:
+    for word in pk.split():
+        for txt in IMAGE_TXT.split():
+            if word == txt:
+                print(txt)
+
+pprint.pprint([
+    (category["name"]) for category in get_categories() if category.get("parentKey") == "mens"
+])
 
 
 def get_image_text(image_file=None):
@@ -92,7 +103,7 @@ def get_image_meta_info(image_text):
 def do_recommend(image_file=None):
     image_text = get_image_text(image_file)
     meta_info = get_image_meta_info(image_text)
-    print meta_info
+    print(meta_info)
 
     result = api.categories(meta_info)
     result = map(lambda i: i.get("name"), result)
