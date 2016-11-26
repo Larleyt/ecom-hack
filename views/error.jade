@@ -1,7 +1,6 @@
-extends page
+extends layout
+
 block content
-  section.success
-    .container
-      h5= message
-      h2= error.status
-      pre #{error.stack}
+  h1= message
+  h2= error.status
+  pre #{error.stack}
