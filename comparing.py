@@ -1,28 +1,62 @@
-import json, requests
+import requests
 
-url = 'https://api.zalando.com/categories'
+API_URL = 'https://api.zalando.com/'
 
 
 # GET THIS FROM AN IMAGE
-s = "a man in a suit and tie walking down a street ."
+IMAGE_TXT = "a man in a suit and tie walking down a street ."
 
 
 ctx = {}
 
-MEN = ["man", "male"]
-WOMEN = ["woman", "female"]
-KIDS = ["boy", "girl"]
+
+class ZalandoAPI():
+    WOMEN = "WOMEN"
+    MEN = "MEN"
+    KIDS = "KIDS"
+    SEX_KEY = "targetGroup"
+
+    def api_call(self, method, request_method="GET", **kwargs):
+        return requests.get(API_URL + method).json()
+
+    def categories(self, extra_data):
+        if not extra_data:
+            extra_data = {}
+        return self.api_call("categories", extra_data)["content"]
 
 
-def define_sex(s, ctx):
-    for word in s.strip().split():
-        if word in MEN:
-            ctx.update({"targetGroup": "MEN"})
-        elif word in WOMEN:
-            ctx.update({"targetGroup": "WOMEN"})
-        elif word in KIDS:
-            ctx.update({"targetGroup": "KIDS"})
+api = ZalandoAPI()
+
+MEN = {i: api.MEN for i in ["man", "male"]}
+WOMEN = {i: api.WOMEN for i in ["woman", "female"]}
+KIDS = {i: api.KIDS for i in ["boy", "girl"]}
+
+SEX = {}
+SEX.update(MEN)
+SEX.update(WOMEN)
+SEX.update(KIDS)
+
+
+def get_image_text(image_file=None):
+    return IMAGE_TXT
+
+
+def get_image_meta_info(image_text):
+    for word in image_text.lower().strip().split():
+        sex = SEX.get(word)
+        if sex:
+            ctx.update({api.SEX_KEY: sex})
     return ctx
 
-def exclude_similar_cats(s, ctx):
-    for 
+
+def do_recommend(image_file=None):
+    image_text = get_image_text(image_file)
+    meta_info = get_image_meta_info(image_text)
+    result = api.categories(meta_info)
+    result = map(lambda i: i.get("name"), result)
+    print(result)
+    return result
+
+
+if __name__ == "__main__":
+    do_recommend(None)
