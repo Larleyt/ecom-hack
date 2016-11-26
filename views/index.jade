@@ -1,5 +1,11 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+    h1= title
+    p Welcome to #{title}
+    for i in photos
+        img(src="/" + i.path)
+
+    form(enctype="multipart/form-data", method="POST")
+        input(type="file", name="photo")
+        input(type="submit", value="Save")
