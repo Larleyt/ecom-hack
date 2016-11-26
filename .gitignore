@@ -2,3 +2,11 @@
 *.pyc
 node_modules
 cache
+.DS_Store
+images/*.jpg
+images_t/*.jpg
+images_p/*.jpg
+images_p/head/*.jpg
+images_p/body/*.jpg
+images_p/legs/*.jpg
+images_p/foots/*.jpg
