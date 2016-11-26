@@ -11,7 +11,7 @@ API_URL = 'https://api.zalando.com/'
 
 
 # GET THIS FROM AN IMAGE
-IMAGE_TXT = ["a man in a suit and tie walking down a street ."]
+IMAGE_TXT = "a man in a suit and tie walking down a street ."
 
 
 ctx = {}
@@ -72,8 +72,14 @@ def get_image_text(image_file=None):
     return IMAGE_TXT
 
 
+def get_vectorized_matrix(image_text):
+    vectorizer = TfidfVectorizer()
+    vectorizer.fit_transform([image_text])
+    return vectorizer.get_feature_names()
+
+
 def get_image_meta_info(image_text):
-    for word in image_text.lower().strip().split():
+    for word in get_vectorized_matrix(image_text):
         sex = SEX.get(word)
         categories = CATEGORIES.get(word)
         if categories:
@@ -82,20 +88,11 @@ def get_image_meta_info(image_text):
             ctx.update({api.SEX_KEY: sex})
     return ctx
 
-def get_vectorized_matrix(image_text):
-    vectorizer = TfidfVectorizer()
-    X = vectorizer.fit_transform(IMAGE_TXT)
-    feature_mapping = vectorizer.get_feature_names()
-    #print X[232]
-    print(X)
-    print(feature_mapping)
-    return X
-
-get_vectorized_matrix(IMAGE_TXT)
 
 def do_recommend(image_file=None):
     image_text = get_image_text(image_file)
     meta_info = get_image_meta_info(image_text)
+    print meta_info
 
     result = api.categories(meta_info)
     result = map(lambda i: i.get("name"), result)
