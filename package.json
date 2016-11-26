@@ -1,31 +1,18 @@
 {
-  "name": "ecom-hack",
-  "version": "0.0.0",
+  "name": "ecomm-hack",
+  "version": "0.0.5",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www",
-    "sync": "git pull && npm install && forever restart \"$PWD/bin/www\"",
-    "build_dist": "rm -rf dist && mkdir dist dist/embed dist/widget dist/about dist/contacts dist/dashboard dist/help dist/faq dist/insurance dist/partners dist/partners/corporations dist/partners/webmasters dist/partners/sellers dist/success dist/antirating && cp public/favicon.ico dist/ && cp -r public/img dist/ && cp -r public/fonts dist/ && cp sendmail.php dist/",
-    "build_jade": "jade -p views/page.jade < views/index.jade > dist/index.html && jade -p views/page.jade < views/widget.jade > dist/widget/index.html && jade -p views/page.jade < views/about.jade > dist/about/index.html && jade -p views/page.jade < views/contacts.jade > dist/contacts/index.html && jade -p views/page.jade < views/dashboard.jade > dist/dashboard/index.html && jade -p views/page.jade < views/help.jade > dist/help/index.html && jade -p views/page.jade < views/faq.jade > dist/faq/index.html && jade -p views/page.jade < views/insurance.jade > dist/insurance/index.html && jade -p views/page.jade < views/partners.jade > dist/partners/index.html && jade -p views/page.jade < views/partners-corporations.jade > dist/partners/corporations/index.html && jade -p views/page.jade < views/partners-webmasters.jade > dist/partners/webmasters/index.html && jade -p views/page.jade < views/partners-sellers.jade > dist/partners/sellers/index.html && jade -p views/page.jade < views/success.jade > dist/success/index.html && jade -p views/page.jade < views/antirating.jade > dist/antirating/index.html && jade -p views/page.jade < views/embed.jade > dist/embed/index.html",
-    "build_js_css": "lessc public/stylesheets/styles.less dist/index.css && browserify scripts/index.js > dist/index.js",
-    "build": "npm run build_dist && npm run build_jade && npm run build_js_css"
+    "start": "node ./bin/www"
   },
   "dependencies": {
-    "body-parser": "~1.10.2",
-    "bootstrap": "^3.3.5",
-    "browserify": "^11.0.1",
+    "body-parser": "~1.15.2",
     "cheerio": "^0.22.0",
-    "cookie-parser": "~1.3.3",
-    "debug": "~2.1.1",
-    "express": "~4.11.1",
-    "firebase": "^3.6.1",
-    "jade": "~1.9.1",
-    "jquery": "^2.1.4",
-    "less": "^2.5.3",
-    "less-middleware": "^1.0.4",
-    "morgan": "~1.5.1",
-    "qs": "^4.0.0",
-    "request": "^2.60.0",
-    "serve-favicon": "~2.2.0"
+    "cookie-parser": "~1.4.3",
+    "debug": "~2.2.0",
+    "express": "~4.14.0",
+    "jade": "~1.11.0",
+    "morgan": "~1.7.0",
+    "serve-favicon": "~2.3.0"
   }
 }
