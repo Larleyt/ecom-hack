@@ -1,1 +1,5 @@
 colorthief
+requests
+numpy
+sklearn
+scipy

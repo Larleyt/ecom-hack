@@ -4,6 +4,8 @@ import sys
 import json
 import requests
 import pprint
+from sklearn.feature_extraction.text import TfidfVectorizer
+
 
 API_URL = 'https://api.zalando.com/'
 
@@ -80,6 +82,16 @@ def get_image_meta_info(image_text):
             ctx.update({api.SEX_KEY: sex})
     return ctx
 
+def get_vectorized_matrix(image_text):
+    vectorizer = TfidfVectorizer()
+    X = vectorizer.fit_transform(IMAGE_TXT)
+    feature_mapping = vectorizer.get_feature_names()
+    #print X[232]
+    print(X)
+    print(feature_mapping)
+    return X
+
+get_vectorized_matrix(IMAGE_TXT)
 
 def do_recommend(image_file=None):
     image_text = get_image_text(image_file)
