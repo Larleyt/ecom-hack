@@ -9,7 +9,7 @@ API_URL = 'https://api.zalando.com/'
 
 
 # GET THIS FROM AN IMAGE
-IMAGE_TXT = "a man in a suit and tie walking down a street ."
+IMAGE_TXT = ["a man in a suit and tie walking down a street ."]
 
 
 ctx = {}
