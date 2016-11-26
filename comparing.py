@@ -88,14 +88,6 @@ def do_recommend(image_file=None):
     return result
 
 
-def get_word_power(word):
-    l = len(word)
-    affix = word[:3]
-    suffix = word[:3]
-    fr = to = 3
-
-
-
 if __name__ == "__main__":
     results = do_recommend(None)
     print results
