@@ -1,7 +1,9 @@
 #!/usr/bin/env python
 import os
+import sys
 import json
 import requests
+import pprint
 
 API_URL = 'https://api.zalando.com/'
 
@@ -54,7 +56,7 @@ def get_categories():
         total_pages = int(api._categories()["totalPages"])
         categories = []
         for page in range(1, total_pages + 1):
-            categories += api.categories({"page": page})
+            categories += api.categories({"page": page, "hidden": "false"})
         f.write(json.dumps(categories))
         f.close()
     return json.loads(open(CACHE_FILE_NAME).read())
@@ -62,7 +64,6 @@ def get_categories():
 
 CATEGORIES = {category["name"]: category["key"] for category in get_categories()}
 PARENT_KEYS = set([category.get("parentKey") for category in get_categories()])
-print PARENT_KEYS
 
 
 def get_image_text(image_file=None):
@@ -91,4 +92,5 @@ def do_recommend(image_file=None):
 
 if __name__ == "__main__":
     results = do_recommend(None)
-    print results
+    if len(sys.argv) == 2:
+        pprint.pprint([(category["name"]) for category in get_categories() if category.get("parentKey") == sys.argv[1]])
